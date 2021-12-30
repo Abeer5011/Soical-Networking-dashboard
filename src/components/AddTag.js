@@ -9,7 +9,7 @@ function AddTag(props) {
     <Modal show={show} onHide={() => setShow(false)}>
       <Form onSubmit={addTag}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Film</Modal.Title>
+          <Modal.Title>Add Tag</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group as={Row} className="mb-3">
@@ -17,7 +17,7 @@ function AddTag(props) {
               Tag
             </Form.Label>
             <Col md="8">
-              <Form.Control type="text" name="tag" required />
+              <Form.Control type="text" name="interest" required />
             </Col>
           </Form.Group>
 

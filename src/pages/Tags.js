@@ -1,3 +1,5 @@
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
 import { Button, Table } from "react-bootstrap"
 import AddTag from "../components/AddTag"
@@ -9,10 +11,10 @@ function Tags() {
   const [show, setShow] = useState(false)
   return (
     <>
-      <h1 style={{ marginTop: 10 }}>Users</h1>
+      <h1 style={{ marginTop: 10 }}>Tags</h1>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button style={{ marginRight: 40, marginBottom: 10 }} onClick={() => setShow(true)} variant="outline-primary">
-          add
+        <Button style={{ marginRight: 40, marginBottom: 10 }} onClick={() => setShow(true)} variant="none">
+          <FontAwesomeIcon icon={faPlusSquare} />
         </Button>
       </div>
       <Table bordered hover style={{ tableLayout: "fixed", textAlign: "center" }}>

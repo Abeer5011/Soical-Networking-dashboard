@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Container } from "react-bootstrap"
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
 import SideBar from "./components/SideBar"
 import Login from "./pages/Login"
 import Posts from "./pages/Posts"
@@ -34,9 +35,11 @@ function App() {
 
       const token = response.data
       localStorage.token = token
+      toast.success("login success")
       navigate("/posts")
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
 
@@ -45,7 +48,8 @@ function App() {
       const response = await axios.get("http://localhost:5000/api/posts")
       setPosts(response.data)
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
 
@@ -54,7 +58,8 @@ function App() {
       const response = await axios.get("http://localhost:5000/api/auth/users")
       setUsers(response.data)
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
   const getTags = async () => {
@@ -62,7 +67,8 @@ function App() {
       const response = await axios.get("http://localhost:5000/api/interests")
       setTags(response.data)
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
   const addTag = async e => {
@@ -70,7 +76,7 @@ function App() {
     try {
       const form = e.target
       const tagBody = {
-        interest: form.elements.tag.value,
+        interest: form.elements.interest.value,
         photo: form.elements.photo.value,
       }
 
@@ -79,9 +85,12 @@ function App() {
           Authorization: localStorage.token,
         },
       })
+
       getTags()
+      toast.success("add tag success")
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
 
@@ -92,9 +101,12 @@ function App() {
           Authorization: localStorage.token,
         },
       })
+
       getPosts()
+      toast.success("delete post success")
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
 
@@ -105,9 +117,34 @@ function App() {
           Authorization: localStorage.token,
         },
       })
+
       getTags()
+      toast.success("delete tag success")
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+  const editTag = async (e, interestId) => {
+    e.preventDefault()
+    try {
+      const form = e.target
+      const tagBody = {
+        interest: form.elements.interest.value,
+        photo: form.elements.photo.value,
+      }
+
+      await axios.put(`http://localhost:5000/api/interests/${interestId}`, tagBody, {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      })
+
+      getTags()
+      toast.success("edit success")
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
 
@@ -118,19 +155,24 @@ function App() {
           Authorization: localStorage.token,
         },
       })
+
       getUsers()
+      toast.success("delete user success")
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
 
   const logout = () => {
     localStorage.removeItem("token")
   }
-  const store = { login, posts, users, interests, addTag, deletePost, deleteTag, deleteUser, logout }
+
+  const store = { login, posts, users, interests, addTag, deletePost, deleteTag, deleteUser, logout, editTag }
   return (
     <DashBoardContext.Provider value={store}>
       <SideBar />
+
       <Container style={{ position: "absolute", top: 20, left: 200 }}>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -139,6 +181,7 @@ function App() {
           <Route path="/tags" element={localStorage.token ? <Tags /> : <Navigate to="/login" />} />
         </Routes>
       </Container>
+      <ToastContainer />
     </DashBoardContext.Provider>
   )
 }

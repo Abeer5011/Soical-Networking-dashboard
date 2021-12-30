@@ -24,8 +24,8 @@ function PostViewModal(props) {
             <ListGroup.Item>
               <strong>tags:</strong>
               <ListGroup>
-                {post.tags.map(tag => (
-                  <ListGroup.Item>{tag.tag}</ListGroup.Item>
+                {post.interests.map(interest => (
+                  <ListGroup.Item>{interest.interest}</ListGroup.Item>
                 ))}
               </ListGroup>
             </ListGroup.Item>
