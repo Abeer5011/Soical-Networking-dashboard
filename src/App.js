@@ -173,7 +173,7 @@ function App() {
     <DashBoardContext.Provider value={store}>
       <SideBar />
 
-      <Container style={{ position: "absolute", top: 20, left: 200 }}>
+      <Container style={{ width: 900, marginLeft: 350 }}>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/posts" element={localStorage.token ? <Posts /> : <Navigate to="/login" />} />
