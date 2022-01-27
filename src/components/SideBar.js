@@ -19,19 +19,19 @@ function SideBar() {
             <a href="#">Dashboard</a>
           </li>
 
-          <li data-toggle="collapse" data-target="#products" class="collapsed active">
+          <li data-toggle="collapse" class="collapsed active">
             <Link to="/users">
               <li>Users</li>
             </Link>{" "}
           </li>
 
-          <li data-toggle="collapse" data-target="#service" class="collapsed">
+          <li data-toggle="collapse" class="collapsed">
             <Link to="/posts">
               <li>Posts</li>
             </Link>
           </li>
 
-          <li data-toggle="collapse" data-target="#new" class="collapsed">
+          <li data-toggle="collapse" class="collapsed">
             <Link to="/tags">
               <li>Tags</li>
             </Link>{" "}
